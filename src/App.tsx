@@ -1,9 +1,10 @@
 import React from "react";
+import Banner from "./components/Banner";
 
 function App() {
   return (
     <div>
-      <img src="./assets/pattern-bg-desktop.png" alt="banner" />
+      <Banner />
     </div>
   );
 }
