@@ -1,35 +1,89 @@
-import React from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import BannerImg from '../assets/pattern-bg-desktop.png'
+import BannerImgMobile from '../assets/pattern-bg-mobile.png'
+import IpDetails from './IpDetails'
 
 const Banner = () => {
+  const [ipFilter, setIpFilter] = useState<string>('')
+  const [ipAddress, setIpAddress] = useState<any>()
+  const apiKey = 'at_uuNS47fEi9D6M0bzn4E958TgaUdda'
+
+  const getIP = useCallback(() => {
+    fetch(
+      `https://geo.ipify.org/api/v2/country?apiKey=${apiKey}&ipAddress=${ipFilter}`,
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`)
+        }
+        return response.json()
+      })
+      .then((data) => {
+        console.log(data)
+        setIpAddress(data)
+      })
+      .catch((error) => {
+        console.error('Error:', error)
+      })
+  }, [ipFilter])
+
+  useEffect(() => {
+    getIP()
+    console.log('yer')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const handleFilterChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setIpFilter(event.target.value as string)
+  }
+
+  const handleSubmitFilter = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    console.log('submitted')
+    getIP()
+  }
+
   return (
-    <div className='relative h-[250px] w-full'>
+    <div className='relative h-[250px]'>
       <img
         src={BannerImg}
-        className='absolute top-0 -z-10 h-full w-full'
+        className='absolute top-0 -z-10 hidden h-full w-full sm:flex'
         alt='banner'
       />
-      <div className='flex w-full flex-col items-center justify-center gap-5 p-6'>
+      <img
+        src={BannerImgMobile}
+        className='absolute top-0 -z-10 h-full w-full sm:hidden'
+        alt='banner'
+      />
+      <div className='flex w-full flex-col items-center justify-center gap-6 p-6'>
         <h1 className='font-rubik text-2xl font-medium text-white'>
           IP Address Tracker
         </h1>
-        <form className='flex min-w-[450px]'>
+        <form
+          onSubmit={handleSubmitFilter}
+          className='flex w-full sm:max-w-[450px]'
+        >
           <input
-            className='w-full rounded-l-xl px-6 py-3'
+            className='w-full rounded-l-xl px-6 py-3 text-xs sm:text-base'
             placeholder='Search for any IP address or domain'
+            onChange={handleFilterChange}
           />
-          <button className='rounded-r-xl bg-gray-900 px-6'>
+          <button type='submit' className='rounded-r-xl bg-gray-900 px-6'>
             <svg xmlns='http://www.w3.org/2000/svg' width='11' height='14'>
               <path
                 fill='none'
                 stroke='#FFF'
-                stroke-width='3'
+                strokeWidth='3'
                 d='M2 1l6 6-6 6'
               />
             </svg>
           </button>
         </form>
+        <IpDetails ipAddress={ipAddress} />
       </div>
+
       {/* <div
         className='absolute bottom-0 h-[100px] w-[700px] bg-white'
         style={{ border: '1px solid red' }}
