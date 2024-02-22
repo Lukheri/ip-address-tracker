@@ -83,7 +83,7 @@ const Banner = () => {
         </form>
         <IpDetails ipAddress={ipAddress} />
       </div>
-      <Map />
+      {ipAddress && <Map country={ipAddress.location.country} />}
     </div>
   )
 }
