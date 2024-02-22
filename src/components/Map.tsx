@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import 'leaflet/dist/leaflet.css'
 import { MapContainer, Marker, TileLayer, useMap } from 'react-leaflet'
 import { LatLngExpression, divIcon } from 'leaflet'
@@ -12,6 +12,7 @@ const RecenterAutomatically = ({
   const map = useMap()
   useEffect(() => {
     map.setView(newCoords)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newCoords])
   return null
 }
@@ -26,8 +27,6 @@ const Map = ({ country }: { country: string }) => {
     if (converted && converted.lat && converted.long) {
       setCoordinates([converted.lat, converted.long])
     }
-    console.log(coordinates)
-    // mapRef.current.setView(coordinates, 15)
   }, [country])
 
   const markerIcon = divIcon({
