@@ -2,6 +2,7 @@ import React, { useCallback, useState, useEffect } from 'react'
 import BannerImg from '../assets/pattern-bg-desktop.png'
 import BannerImgMobile from '../assets/pattern-bg-mobile.png'
 import IpDetails from './IpDetails'
+import Map from './Map'
 
 const Banner = () => {
   const [ipFilter, setIpFilter] = useState<string>('')
@@ -41,7 +42,6 @@ const Banner = () => {
 
   const handleSubmitFilter = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log('submitted')
     getIP()
   }
 
@@ -83,11 +83,7 @@ const Banner = () => {
         </form>
         <IpDetails ipAddress={ipAddress} />
       </div>
-
-      {/* <div
-        className='absolute bottom-0 h-[100px] w-[700px] bg-white'
-        style={{ border: '1px solid red' }}
-      ></div> */}
+      <Map />
     </div>
   )
 }
