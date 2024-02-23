@@ -7,7 +7,7 @@ import Map from './Map'
 const Banner = () => {
   const [ipFilter, setIpFilter] = useState<string>('')
   const [ipAddress, setIpAddress] = useState<any>()
-  const apiKey = 'at_uuNS47fEi9D6M0bzn4E958TgaUdda'
+  const apiKey = process.env.REACT_APP_API_KEY
 
   const getIP = useCallback(() => {
     fetch(
@@ -26,6 +26,7 @@ const Banner = () => {
       .catch((error) => {
         console.error('Error:', error)
       })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ipFilter])
 
   useEffect(() => {

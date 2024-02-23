@@ -37,7 +37,7 @@ const Map = ({ country }: { country: string }) => {
 
   return (
     <div className='absolute top-[250px] -z-10 h-[calc(100dvh-250px)] w-full'>
-      <MapContainer center={coordinates} zoom={15} scrollWheelZoom={true}>
+      <MapContainer center={coordinates} zoom={13} scrollWheelZoom={true}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url='https://tile.openstreetmap.org/{z}/{x}/{y}.png'
