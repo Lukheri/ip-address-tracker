@@ -3,10 +3,11 @@ import BannerImg from '../assets/pattern-bg-desktop.png'
 import BannerImgMobile from '../assets/pattern-bg-mobile.png'
 import IpDetails from './IpDetails'
 import Map from './Map'
+import { IPAdress } from '../constants/types'
 
 const Banner = () => {
   const [ipFilter, setIpFilter] = useState<string>('')
-  const [ipAddress, setIpAddress] = useState<any>()
+  const [ipAddress, setIpAddress] = useState<IPAdress | undefined>()
   const apiKey = process.env.REACT_APP_API_KEY
 
   const getIP = useCallback(() => {

@@ -1,4 +1,6 @@
-const IpDetails = ({ ipAddress }: { ipAddress: any }) => {
+import { IPAdress } from '../constants/types'
+
+const IpDetails = ({ ipAddress }: { ipAddress: IPAdress | undefined }) => {
   return (
     <>
       {ipAddress && (
